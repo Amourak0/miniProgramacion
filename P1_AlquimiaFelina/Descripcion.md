@@ -1,3 +1,6 @@
+## Link
+https://omegaup.com/arena/problem/Alquimia/
+
 ## Descripción
 
 Chatito no es un gato ordinario. Mientras otros persiguen ratones o duermen al sol, Chatito, un felino de pelaje negro y ojos curiosos, practica el antiguo arte de la alquimia felina. En el ático polvoriento de su torre de mago, ha alineado en una fila N pociones que brillan con luz propia. Solo existen seis colores posibles para estas pociones: R, G, B, Y, O, P.
