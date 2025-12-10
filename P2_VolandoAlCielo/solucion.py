@@ -1,4 +1,42 @@
+class meshRoot():
+    hijos = []
 
+    def __init__(self, hijos):
+        self.hijos = hijos
+    
+    def printMesh(self):
+        hijosVal = []
+        for h in self.hijos:
+            hijosVal.append(h.valor)
+        print("Hijos: ", hijosVal)
+        for h in self.hijos:
+            h.printMesh()
+    
+    def setValor(self, nuevoValor, posicion):
+        posx = posicion[0]
+        posy = posicion[1]
+        raiz = self.hijos[posx]
+        for _ in range(posy):
+            if posx != 0:
+                raiz = raiz.hijos[1]
+            else:
+                raiz = raiz.hijos[0]
+        raiz.valor = nuevoValor
+
+    def getMinVal(self, posicion = -1):
+        if posicion == -1:
+            return min(h.getMinVal() for h in self.hijos)
+        posx = posicion[0]
+        posy = posicion[1]
+        raiz = self.hijos[posx]
+        for _ in range(posy):
+            if posx != 0:
+                raiz = raiz.hijos[1]
+            else:
+                raiz = raiz.hijos[0]
+        if raiz.hijos == [None]:
+            return raiz.valor
+        return min(h.getMinVal() for h in raiz.hijos) + raiz.valor
 
 
 class mesh():
@@ -20,6 +58,12 @@ class mesh():
         print("Hijos: ", hijosVal)
         for h in self.hijos:
             h.printMesh()
+    
+    def getMinVal(self):
+        if self.hijos == [None]:
+            return self.valor
+        return min(h.getMinVal() for h in self.hijos) + self.valor
+        
 
 
 
@@ -29,18 +73,10 @@ class mesh():
 def main():
     entradas = tomar_entradas()
     malla = constrMesh(entradas)
-    print("\n\n --- Entradas ---\n", entradas)
-    print()
 
-    potencial = 0
+    valor = malla.getMinVal()
 
-    malla.printMesh()
-
-
-
-    # 2 3 4
-    # 6 9 4
-    
+    print(valor, end="")
     
 
             
@@ -76,7 +112,7 @@ def constrMesh(univ):
     hijos = []
     for i in range(cantidad_espacios):
         hijos.append(nivel[1][i])
-    nivel[0] = mesh(0, hijos)
+    nivel[0] = meshRoot(hijos)
 
     return nivel[0]
 
@@ -84,18 +120,18 @@ def constrMesh(univ):
 
 
 def tomar_entradas():
-    # asumimos que las entradas soin validas
     linea = input().split()
     if linea == ["def"]:
         return [[2, 3], [2, 3, 4], [6, 9, 4]]
     if linea == ["def2"]:
         return [[1, 5], [2, 3, 4, 5, 8]]
+    if linea == ["def3"]:
+        return [[3, 3], [1, 2, 3], [4, 5, 6], [7, 8, 9]]
     linea = list(map(int, linea))
     todo = [linea]
     for i in range(int(linea[0])):
         linea = list(map(int, input().split()))
         todo.append(linea)
-    print(todo)
     return todo
 
 
